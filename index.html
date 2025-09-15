@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SR12 LOVERS ~ Skincare Store</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            skin: { bg: '#faf7f5', accent: '#e6d8cf', primary: '#1a1a1a' }
+          },
+          boxShadow: { soft: '0 10px 25px -10px rgba(0,0,0,.15)' },
+          borderRadius: { xl2: '1rem' }
+        }
+      }
+    }
+  </script>
+  <style>
+    .scroll-smooth::-webkit-scrollbar { width: 8px; }
+    .scroll-smooth::-webkit-scrollbar-thumb { background: #ddd; border-radius: 9999px; }
+    /* Style untuk badge keranjang */
+    .cart-badge {
+      position: absolute;
+      top: -5px;
+      right: -10px;
+      background-color: #ef4444; /* red-500 */
+      color: white;
+      border-radius: 9999px;
+      padding: 0 6px;
+      font-size: 10px;
+      font-weight: bold;
+      display: none; /* Sembunyikan secara default */
+    }
+  </style>
+</head>
+<body class="bg-skin-bg text-skin-primary antialiased">
+    <!-- Top Announcement Bar -->
+  <div class="bg-white/70 backdrop-blur supports-[backdrop-filter]:bg-white/60 border-b border-neutral-200 text-xs">
+    <div class="max-w-7xl mx-auto px-4 py-2 flex items-center justify-between">
+      <p class="hidden sm:block">Gratis ongkir untuk pembelian di atas Rp200.000</p>
+      <p class="sm:hidden">Gratis ongkir > Rp200K</p>
+      <a href="#promo" class="underline">Lihat Promo</a>
+    </div>
+  </div>
+
+  <header class="sticky top-0 z-40 bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60 border-b border-neutral-200">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center gap-3">
+      <button id="btnMobileNav" class="lg:hidden p-2 rounded-xl border"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg></button>
+      <a href="#" class="font-semibold text-lg tracking-tight text-emerald-700">SR12 LOVERS</a>
+      <nav class="hidden lg:flex ml-6 text-sm items-center gap-4 flex-1">
+        <a class="hover:underline" href="#">Beranda</a>
+        <a class="hover:underline" href="#kategori">Kategori</a>
+        <a class="hover:underline" href="#produk">Produk</a>
+      </nav>
+      <div class="ml-auto flex items-center gap-2">
+        <button id="openCartBtn" class="relative inline-flex p-2 rounded-xl border border-neutral-200">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="h-5 w-5"><path d="M6 7h12l-1 12H7L6 7Z"/><path d="M9 7V6a3 3 0 1 1 6 0v1"/></svg>
+          <span id="cart-count" class="cart-badge">0</span>
+        </button>
+      </div>
+    </div>
+    <div id="mobileNav" class="lg:hidden hidden border-t bg-white"><div class="max-w-7xl mx-auto px-4 py-3 grid gap-2 text-sm"><a class="py-2" href="#">Beranda</a><a class="py-2" href="#kategori">Kategori</a><a class="py-2" href="#produk">Produk</a></div></div>
+  </header>
+
+    <!-- Hero -->
+  <section class="max-w-7xl mx-auto px-4 py-8 md:py-12">
+    <div class="grid md:grid-cols-2 gap-6 items-center">
+      <div class="p-6 rounded-2xl bg-gradient-to-br from-white to-skin-accent/40 border border-neutral-200 shadow-soft">
+        <h1 class="text-2xl md:text-3xl font-semibold leading-tight">Solusi Skincare Herbal & Kesehatan Keluarga</h1>
+        <p class="mt-3 text-sm text-neutral-600">Temukan rangkaian produk SR12: sabun, serum, masker, herbal, hingga perawatan bayi & keluarga. Aman, terdaftar BPOM, dan berbahan alami.</p>
+        <div class="mt-4 flex flex-wrap gap-2">
+          <a href="#produk" class="px-4 py-2 rounded-xl bg-emerald-600 text-white text-sm">Belanja Sekarang</a>
+          <a href="#kategori" class="px-4 py-2 rounded-xl border border-neutral-300 text-sm">Lihat Kategori</a>
+        </div>
+      </div>
+      <div class="grid grid-cols-2 gap-3">
+        <div class="aspect-[4/5] rounded-2xl bg-white border border-neutral-200 overflow-hidden flex">
+          <img src="products/soap.jpg" alt="SR12 Soap" class="w-full h-full object-cover">
+        </div>
+        <div class="aspect-[4/5] rounded-2xl bg-white border border-neutral-200 overflow-hidden flex">
+          <img src="products/herbal.jpg" alt="Herbal" class="w-full h-full object-cover">
+        </div>
+        <div class="col-span-2 aspect-[10/3] rounded-2xl bg-white border border-neutral-200 overflow-hidden flex">
+          <img src="products/skincare.jpg" alt="SR12 Skincare & Keluarga" class="w-full h-full object-cover">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section Kategori -->
+  <section id="kategori" class="max-w-7xl mx-auto px-4 py-6">
+    <h2 class="text-lg md:text-xl font-semibold mb-4">Pilih Kategori</h2>
+    <div id="kategori-btns" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+        <button type="button" data-type="Face & Body Soap" class="kategori-btn block text-center bg-emerald-100 hover:bg-emerald-200 px-4 py-3 rounded-xl transition">🌟 Face & Body Soap</button>
+        <button type="button" data-type="Body Serum" class="kategori-btn block text-center bg-emerald-100 hover:bg-emerald-200 px-4 py-3 rounded-xl transition">💧 Body Serum</button>
+        <button type="button" data-type="Body Scrub" class="kategori-btn block text-center bg-emerald-100 hover:bg-emerald-200 px-4 py-3 rounded-xl transition">🧼 Body Scrub</button>
+        <button type="button" data-type="Product Bundling" class="kategori-btn block text-center bg-emerald-100 hover:bg-emerald-200 px-4 py-3 rounded-xl transition">🎁 Product Bundling</button>
+        <button type="button" data-type="Acne Series" class="kategori-btn block text-center bg-emerald-100 hover:bg-emerald-200 px-4 py-3 rounded-xl transition">🩺 Acne Series</button>
+        <button type="button" data-type="Face Wash" class="kategori-btn block text-center bg-emerald-100 hover:bg-emerald-200 px-4 py-3 rounded-xl transition">🚿 Face Wash</button>
+        <button type="button" data-type="Face Mask" class="kategori-btn block text-center bg-emerald-100 hover:bg-emerald-200 px-4 py-3 rounded-xl transition">🎭 Face Mask</button>
+        <button type="button" data-type="Parfume" class="kategori-btn block text-center bg-emerald-100 hover:bg-emerald-200 px-4 py-3 rounded-xl transition">🌸 Parfume</button>
+        <button type="button" data-type="Body Care" class="kategori-btn block text-center bg-emerald-100 hover:bg-emerald-200 px-4 py-3 rounded-xl transition">💆‍♀️ Body Care</button>
+        <button type="button" data-type="Beauty Drink" class="kategori-btn block text-center bg-emerald-100 hover:bg-emerald-200 px-4 py-3 rounded-xl transition">🥤 Beauty Drink</button>
+        <button type="button" data-type="Hair Care" class="kategori-btn block text-center bg-emerald-100 hover:bg-emerald-200 px-4 py-3 rounded-xl transition">✨ Hair Care</button>
+        <button type="button" data-type="Personal Care" class="kategori-btn block text-center bg-emerald-100 hover:bg-emerald-200 px-4 py-3 rounded-xl transition">💄 Personal Care</button>
+        <button type="button" data-type="Face Care" class="kategori-btn block text-center bg-emerald-100 hover:bg-emerald-200 px-4 py-3 rounded-xl transition">🧴 Face Care</button>
+        <button type="button" data-type="Herbal" class="kategori-btn block text-center bg-emerald-100 hover:bg-emerald-200 px-4 py-3 rounded-xl transition">🌿 Herbal</button>
+        <button type="button" data-type="SR Kiddos" class="kategori-btn block text-center bg-emerald-100 hover:bg-emerald-200 px-4 py-3 rounded-xl transition">👶 SR Kiddos</button>
+        <button type="button" data-type="Toothpaste" class="kategori-btn block text-center bg-emerald-100 hover:bg-emerald-200 px-4 py-3 rounded-xl transition">🪥 Toothpaste</button>
+    </div>
+  </section>
+
+  <!-- Semua Produk Section -->
+  <section id="produk" class="max-w-7xl mx-auto px-4 py-8">
+    <h2 class="text-lg md:text-xl font-semibold mb-6">Semua Produk SR12</h2>
+    <div class="grid lg:grid-cols-[260px,1fr] gap-6">
+      <aside id="filter-sidebar" class="hidden lg:block bg-white border border-neutral-200 rounded-2xl p-4 h-fit sticky top-24">
+        <h3 class="font-medium">Filter</h3>
+        <div class="mt-3 space-y-5 text-sm">
+          <div>
+            <p class="font-medium mb-2">Kategori Produk</p>
+            <div id="type-filter-list" class="space-y-2"></div>
+          </div>
+          <div>
+            <p class="font-medium mb-2">Harga</p>
+            <div class="flex items-center gap-2">
+              <input type="number" id="min-price" class="w-1/2 border border-neutral-300 rounded-lg py-1 px-2" placeholder="Min"/>
+              <input type="number" id="max-price" class="w-1/2 border border-neutral-300 rounded-lg py-1 px-2" placeholder="Max"/>
+            </div>
+          </div>
+          <button id="reset-filter" class="w-full mt-2 px-3 py-2 rounded-xl border border-neutral-300">Reset Filter</button>
+        </div>
+      </aside>
+      <!-- Produk Grid -->
+      <div id="productGrid" class="grid grid-cols-2 md:grid-cols-4 gap-4 items-start">
+  </div>
+    </div>
+  </section>
+  
+  <div id="cart-modal" class="fixed inset-0 z-50 hidden">
+    <div id="cart-overlay" class="absolute inset-0 bg-black/40"></div>
+    <div class="ml-auto h-full w-[88%] sm:w-96 bg-white rounded-l-2xl p-4 overflow-auto scroll-smooth flex flex-col relative z-10">
+      <div class="flex items-center justify-between">
+        <h3 class="font-medium text-lg">Keranjang Belanja</h3>
+        <button id="closeCartBtn" class="p-2">Tutup</button>
+      </div>
+      <div id="cart-items" class="mt-4 flex-1 space-y-3">
+        </div>
+      <div class="mt-auto border-t pt-4">
+        <div class="flex justify-between font-bold text-lg">
+          <span>Total:</span>
+          <span id="cart-total">Rp0</span>
+        </div>
+        <a id="checkout-wa-btn" href="#" target="_blank" class="block w-full text-center mt-4 px-3 py-3 rounded-xl bg-green-500 text-white">
+          Checkout via WhatsApp
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick View Modal -->
+  <div id="quickView" class="fixed inset-0 z-50 hidden">
+    <div id="modal-overlay" class="absolute inset-0 bg-black/40"></div>
+    <div class="mx-auto mt-20 max-w-3xl bg-white rounded-2xl border overflow-hidden relative">
+        <div class="grid md:grid-cols-2">
+            <div class="aspect-square bg-neutral-50 flex items-center justify-center">
+                <img id="modalImage" src="" alt="" class="max-h-full max-w-full object-contain">
+            </div>
+            <div class="p-5">
+                <div class="flex items-start justify-between">
+                    <h3 id="modalName" class="font-semibold"></h3>
+                    <button id="modal-close-btn" type="button">✕</button>
+                </div>
+                <p id="modalType" class="text-sm text-neutral-600 mt-1"></p>
+                <p id="modalDetails" class="text-sm mt-2"></p>
+
+                <!-- Tabs -->
+                <div id="tabsContainer" class="mt-4 border-b flex gap-4 text-sm">
+                    <button type="button" data-tab="details" id="tab-details"
+                        class="pb-2 border-b-2 border-black">Detail</button>
+                    <button type="button" data-tab="usage" id="tab-usage" class="pb-2 border-b-2 border-transparent">Cara
+                        Pakai</button>
+                </div>
+                <div class="mt-3 text-sm">
+                    <div id="tabContent-details"></div>
+                    <div id="tabContent-usage" class="hidden"></div>
+                </div>
+
+                <p id="modalPrice" class="font-semibold text-lg mt-3"></p>
+                <button class="add-to-cart-btn-modal mt-4 w-full px-4 py-2 rounded-xl bg-black text-white">Tambah ke Keranjang</button>
+            </div>
+        </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer py-12 bg-emerald-800">
+    <div class="container">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 px-4 py-3">
+        <div>
+          <div class="flex items-center mb-4">
+            <div class="bg-white p-2 rounded-lg mr-3">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-emerald-700" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+              </svg>
+            </div>
+            <h1 class="text-2xl font-bold text-white">SR12 Lovers</h1>
+          </div>
+          <p class="text-gray-200 mb-4">
+            Toko skincare herbal & kesehatan keluarga. Produk SR12 resmi, aman, dan terdaftar BPOM.
+          </p>
+        </div>
+        <div>
+          <h3 class="text-lg font-bold text-white mb-4">Kategori</h3>
+          <ul class="space-y-2">
+            <li><a href="#produk-facebodysoap" class="text-gray-200 hover:text-white">Face & Body Soap</a></li>
+            <li><a href="#produk-bodyserum" class="text-gray-200 hover:text-white">Body Serum</a></li>
+            <li><a href="#produk-bodyscrub" class="text-gray-200 hover:text-white">Body Scrub</a></li>
+            <li><a href="#produk-bundling" class="text-gray-200 hover:text-white">Product Bundling</a></li>
+            <li><a href="#produk-acneseries" class="text-gray-200 hover:text-white">Acne Series</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-lg font-bold text-white mb-4">Tautan Cepat</h3>
+          <ul class="space-y-2">
+            <li><a href="#home" class="text-gray-200 hover:text-white">Beranda</a></li>
+            <li><a href="#kategori" class="text-gray-200 hover:text-white">Kategori</a></li>
+            <li><a href="#produk" class="text-gray-200 hover:text-white">Produk</a></li>
+            <li><a href="#contact" class="text-gray-200 hover:text-white">Kontak</a></li>
+          </ul>
+        </div>
+        <!--
+          <div>
+            <h3 class="text-lg font-bold text-white mb-4">Newsletter</h3>
+            <p class="text-gray-200 mb-4">Dapatkan info promo & produk terbaru SR12 Lovers langsung ke email Anda.</p>
+            <form class="flex">
+              <input type="email" class="px-4 py-2 w-full rounded-l-lg focus:outline-none" placeholder="Email Anda">
+              <button class="bg-white hover:bg-emerald-100 text-emerald-700 px-4 rounded-r-lg">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                </svg>
+              </button>
+            </form>
+          </div>
+        -->
+      </div>
+      <div class="border-t border-emerald-700 mt-12 pt-8 text-center">
+        <p class="text-gray-200">&copy; 2025 SR12 Lovers. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+  
+  <!-- Scroll to Top Button -->
+  <button class="scroll-top fixed bottom-6 right-6 bg-emerald-600 text-white p-3 rounded-full shadow-lg hidden z-50" id="scrollTopBtn" aria-label="Scroll to top">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
+    </svg>
+  </button>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+    // =================================================================
+    // A. STATE & GLOBAL VARIABLES
+    // =================================================================
+    
+    let allProducts = []; // Holds the master list of products
+    let cart = JSON.parse(localStorage.getItem('sr12cart')) || [];
+    
+    // GANTI DENGAN NOMOR WA ANDA
+    const yourWhatsAppNumber = '6281234567890';
+
+    // =================================================================
+    // B. DOM ELEMENT SELECTORS
+    // =================================================================
+    
+    const productGrid = document.getElementById("productGrid");
+    const typeFilterList = document.getElementById("type-filter-list");
+    const filterSidebar = document.getElementById('filter-sidebar');
+    const resetFilterBtn = document.getElementById('reset-filter');
+    
+    // Cart elements
+    const openCartBtn = document.getElementById('openCartBtn');
+    const closeCartBtn = document.getElementById('closeCartBtn');
+    const cartModal = document.getElementById('cart-modal');
+    const cartOverlay = document.getElementById('cart-overlay');
+    const cartCountEl = document.getElementById('cart-count');
+    const cartItemsEl = document.getElementById('cart-items');
+    const cartTotalEl = document.getElementById('cart-total');
+    const checkoutWaBtn = document.getElementById('checkout-wa-btn');
+    
+    // Quick view elements
+    const quickViewModal = document.getElementById("quickView");
+
+    // =================================================================
+    // C. CORE FUNCTIONS (Rendering, Cart, Filter, etc.)
+    // =================================================================
+
+    /**
+     * Fetches product data from JSON file.
+     */
+    async function fetchProducts() {
+        try {
+        const response = await fetch("products.json");
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        return await response.json();
+        } catch (error) {
+        console.error("Could not fetch products:", error);
+        productGrid.innerHTML = "<p>Gagal memuat produk. Silakan coba lagi nanti.</p>";
+        return [];
+        }
+    }
+
+    /**
+     * Generates filter checkboxes from the product list.
+     */
+    function generateFilterUI(products) {
+        const typeSet = new Set(products.map(p => p.type));
+        const filterHTML = Array.from(typeSet).sort().map(type => {
+        const id = "type-" + type.replace(/\W+/g, '').toLowerCase();
+        return `
+            <label class="flex items-center gap-2 cursor-pointer">
+            <input type="checkbox" name="product_type" value="${type}" id="${id}" class="filter-input"/> ${type}
+            </label>
+        `;
+        }).join('');
+        typeFilterList.innerHTML = filterHTML;
+        setupKategoriBtnFilters(); // <-- add this here
+    }
+
+    // Kategori button filter logic
+    function setupKategoriBtnFilters() {
+      const kategoriBtns = document.querySelectorAll('.kategori-btn');
+      kategoriBtns.forEach(btn => {
+        btn.onclick = function() {
+          const type = this.getAttribute('data-type');
+          const id = 'type-' + type.replace(/\W+/g, '').toLowerCase();
+          const checkbox = document.getElementById(id);
+          if (!checkbox) return;
+          checkbox.checked = !checkbox.checked;
+          checkbox.dispatchEvent(new Event('input', { bubbles: true }));
+          // Toggle active style
+          this.classList.toggle('bg-emerald-500', checkbox.checked);
+          this.classList.toggle('text-white', checkbox.checked);
+          this.classList.toggle('bg-emerald-100', !checkbox.checked);
+        };
+      });
+      // Sync kategori button state with filter checkboxes on filter change
+      document.getElementById('filter-sidebar').addEventListener('input', function() {
+        kategoriBtns.forEach(btn => {
+          const type = btn.getAttribute('data-type');
+          const id = 'type-' + type.replace(/\W+/g, '').toLowerCase();
+          const checkbox = document.getElementById(id);
+          if (checkbox && checkbox.checked) {
+            btn.classList.add('bg-emerald-500', 'text-white');
+            btn.classList.remove('bg-emerald-100');
+          } else {
+            btn.classList.remove('bg-emerald-500', 'text-white');
+            btn.classList.add('bg-emerald-100');
+          }
+        });
+      });
+    }
+
+    /**
+     * Renders all product cards into the grid.
+     */
+    function renderProducts(products) {
+        if (products.length === 0) return;
+        const productHTML = products.map(product => `
+        <div class="product-card group bg-white border border-neutral-200 rounded-2xl p-3 flex flex-col hover:shadow-soft transition" data-type="${product.type}" data-price="${product.price}" data-id="${product.id}">
+            <div class="aspect-square rounded-xl bg-skin-accent/40 border mb-3 overflow-hidden flex items-center justify-center">
+            <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover">
+            </div>
+            <div class="flex-grow">
+            <p class="text-sm text-neutral-500">${product.type}</p>
+            <h4 class="text-sm font-medium">${product.name}</h4>
+            </div>
+            <div class="flex items-center justify-between pt-1">
+            <p class="font-semibold">${formatRupiah(product.price)}</p>
+            <button class="text-sm underline quick-view-btn" data-id="${product.id}">Info Produk</button>
+            </div>
+            <button class="add-to-cart-btn w-full mt-2 px-3 py-2 rounded-xl bg-emerald-600 text-white text-sm"
+            data-id="${product.id}"
+            data-name="${product.name}"
+            data-price="${product.price}">
+            Tambah ke Keranjang
+            </button>
+        </div>
+        `).join('');
+        productGrid.innerHTML = productHTML;
+    }
+    
+    /**
+     * Applies filters based on user selection.
+     */
+    function applyFilters() {
+        const activeTypes = Array.from(document.querySelectorAll('input[name="product_type"]:checked')).map(el => el.value);
+        const minPrice = parseFloat(document.getElementById('min-price').value) || 0;
+        const maxPrice = parseFloat(document.getElementById('max-price').value) || Infinity;
+        const productCards = document.querySelectorAll('.product-card');
+
+        productCards.forEach(card => {
+        const price = parseFloat(card.dataset.price);
+        const type = card.dataset.type;
+        const typeMatch = activeTypes.length === 0 || activeTypes.includes(type);
+        const priceMatch = price >= minPrice && price <= maxPrice;
+        card.style.display = (typeMatch && priceMatch) ? 'flex' : 'none';
+        });
+    }
+
+    // --- Cart Functions ---
+    function saveCart() {
+        localStorage.setItem('sr12cart', JSON.stringify(cart));
+    }
+
+    function formatRupiah(number) {
+        return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(number);
+    }
+
+    function addToCart(id, name, price, image) {
+        const existingItem = cart.find(item => item.id === id);
+        if (existingItem) {
+        existingItem.quantity++;
+        } else {
+        cart.push({ id, name, price, quantity: 1, image });
+        }
+        saveCart();
+        updateCartUI();
+    }
+    
+    function removeFromCart(id) {
+        cart = cart.filter(item => item.id != id);
+        saveCart();
+        updateCartUI();
+    }
+
+    function updateCartUI() {
+        if (cart.length === 0) {
+        cartItemsEl.innerHTML = '<p class="text-neutral-500">Keranjang Anda kosong.</p>';
+        } else {
+            cartItemsEl.innerHTML = cart.map(item => `
+                <div class="flex items-center gap-3 border-b pb-2">
+                    <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded-md border">
+                    <div class="flex-1">
+                        <p class="text-sm font-medium">${item.name}</p>
+                        <p class="text-xs text-neutral-600">${item.quantity} x ${formatRupiah(item.price)}</p>
+                    </div>
+                    <p class="font-semibold text-sm">${formatRupiah(item.price * item.quantity)}</p>
+                    <button class="remove-from-cart-btn text-red-500 text-xs" data-id="${item.id}">Hapus</button>
+                </div>
+            `).join('');
+        }
+
+        const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+
+        cartTotalEl.textContent = formatRupiah(total);
+        cartCountEl.textContent = totalItems;
+        cartCountEl.style.display = totalItems > 0 ? 'flex' : 'none';
+        
+        updateWhatsAppLink(total);
+    }
+
+    function updateWhatsAppLink(total) {
+        if (cart.length === 0) {
+        checkoutWaBtn.classList.add('opacity-50', 'cursor-not-allowed');
+        checkoutWaBtn.href = '#';
+        return;
+        }
+        
+        checkoutWaBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+        let message = 'Halo, saya ingin memesan produk berikut:\n\n';
+        cart.forEach(item => {
+        message += `- ${item.name} (x${item.quantity})\n`;
+        });
+        message += `\n*Total: ${formatRupiah(total)}*`;
+        checkoutWaBtn.href = `https://api.whatsapp.com/send?phone=${yourWhatsAppNumber}&text=${encodeURIComponent(message)}`;
+    }
+
+    // --- Quick View Functions ---
+    function openQuickView(id) {
+        const p = allProducts.find(x => x.id === parseInt(id, 10));
+        if (!p) return;
+        document.getElementById("modalImage").src = p.image;
+        document.getElementById("modalName").textContent = p.name;
+        document.getElementById("modalType").textContent = p.type;
+        document.getElementById("modalDetails").textContent = ""; // Kosongkan, hanya tab yang tampil
+        document.getElementById("tabContent-details").textContent = p.description;
+        document.getElementById("tabContent-usage").textContent = p.usage;
+        document.getElementById("modalPrice").textContent = formatRupiah(p.price);
+        quickViewModal.classList.remove("hidden");
+        quickViewModal.setAttribute('data-current-product-id', p.id); // simpan id produk
+        switchTab('details'); // Reset to default tab
+    }
+
+    function closeQuickView() {
+        quickViewModal.classList.add("hidden");
+    }
+
+    function switchTab(tab) {
+        document.getElementById("tabContent-details").classList.toggle("hidden", tab !== 'details');
+        document.getElementById("tabContent-usage").classList.toggle("hidden", tab !== 'usage');
+        document.getElementById("tab-details").classList.toggle("border-black", tab === 'details');
+        document.getElementById("tab-usage").classList.toggle("border-black", tab === 'usage');
+    }
+
+    // =================================================================
+    // D. EVENT LISTENERS
+    // =================================================================
+
+    function setupEventListeners() {
+        // Event Delegation for dynamically created buttons inside productGrid
+        productGrid.addEventListener('click', (e) => {
+        const target = e.target;
+            if (target.matches('.add-to-cart-btn')) {
+                const { id, name, price } = target.dataset;
+                addToCart(id, name, parseFloat(price));
+                alert(`${name} ditambahkan ke keranjang!`);
+        }
+            if (target.matches('.quick-view-btn')) {
+                openQuickView(target.dataset.id);
+        }
+        });
+
+        // Event Delegation for remove buttons inside cart
+        cartItemsEl.addEventListener('click', (e) => {
+            if (e.target.matches('.remove-from-cart-btn')) {
+                removeFromCart(e.target.dataset.id);
+        }
+        });
+
+        // Filter listeners
+        filterSidebar.addEventListener('input', (e) => {
+            if (e.target.matches('.filter-input, #min-price, #max-price')) {
+                applyFilters();
+        }
+        });
+        
+        resetFilterBtn.addEventListener('click', () => {
+        filterSidebar.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
+        filterSidebar.querySelectorAll('.price-input').forEach(inp => inp.value = '');
+        applyFilters();
+        });
+
+        // Cart modal listeners
+        openCartBtn.addEventListener('click', () => cartModal.classList.remove('hidden'));
+        closeCartBtn.addEventListener('click', () => cartModal.classList.add('hidden'));
+        cartOverlay.addEventListener('click', () => cartModal.classList.add('hidden'));
+        
+        // Quick view modal listeners
+        document.getElementById('modal-close-btn').addEventListener('click', closeQuickView);
+        document.getElementById('modal-overlay').addEventListener('click', closeQuickView);
+        document.getElementById('tabsContainer').addEventListener('click', (e) => {
+            if(e.target.dataset.tab) {
+                switchTab(e.target.dataset.tab);
+            }
+        });
+        // Tambah ke keranjang dari quickview
+        document.querySelector('.add-to-cart-btn-modal').addEventListener('click', function() {
+            const productId = quickViewModal.getAttribute('data-current-product-id');
+            if (productId) {
+                const product = allProducts.find(p => p.id === parseInt(productId, 10));
+                if (product) {
+                    addToCart(product.id.toString(), product.name, product.price, product.image);
+                    alert(`${product.name} ditambahkan ke keranjang!`);
+                }
+            }
+        });            
+    }
+
+    // =================================================================
+    // E. INITIALIZATION
+    // =================================================================
+    
+    async function initializeApp() {
+        allProducts = await fetchProducts();
+        generateFilterUI(allProducts);
+        renderProducts(allProducts);
+        updateCartUI();
+        setupEventListeners();
+    }
+
+    initializeApp();
+    });
+
+    // Scroll to Top functionality
+    const scrollTopBtn = document.getElementById('scrollTopBtn');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 300) {
+        scrollTopBtn.classList.remove('hidden');
+      } else {
+        scrollTopBtn.classList.add('hidden');
+      }
+    });
+    scrollTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
+</body>
+</html>
